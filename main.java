@@ -1,31 +1,10 @@
 import java.util.Scanner;
 class Main {
+
   public static void main(String[] args) 
   {
-    disabled();
+    parkingCharge();
     System.exit(0);
-  }
-
-  public static void disabled () 
-  {
-    Scanner scanner = new Scanner(System.in);
-
-    System.out.println("Are you disabled?");
-    String disabled = scanner.nextLine();
-
-    disabled = disabled.toLowerCase();
-
-    if (disabled.equals("yes")) {
-      System.out.println("Parking for you is free");
-      return;
-    } else if (disabled.equals("no")) {
-      totalFee();
-    } else {
-      System.out.println("Your response was not understood!");
-      System.out.println("Please try again!");
-      System.out.println("");
-      disabled();
-    }
   }
 
   public static double feeCalc ()
@@ -57,64 +36,51 @@ class Main {
     return fee;
   }
 
-  public static boolean localDiscount () 
+  public static boolean question (String question) 
   {
-    boolean localDiscount = false;
+    boolean r = false;
     Scanner scanner = new Scanner(System.in);
-    System.out.println("Do you have an ”I live locally badge”?");
+    System.out.println(question);
     String response = scanner.nextLine();
     response = response.toLowerCase();
 
     if (response.equals("yes")) {
-      localDiscount = true;
+      r = true;
     } else if (response.equals("no")) {
-      localDiscount = false;
+      r = false;
     } else {
       System.out.println("Your response was not understood!");
       System.out.println("Please try again!");
       System.out.println("");
-      localDiscount();
+      question(question);
     }
-    return localDiscount;
+    return r;
   }
 
-  public static boolean oapDiscount () 
+  public static void parkingCharge () 
   {
-    boolean oapDiscount = false;
-    Scanner scanner = new Scanner(System.in);
-    System.out.println("Are you an OAP?");
-    String response = scanner.nextLine();
-    response = response.toLowerCase();
-
-    if (response.equals("yes")) {
-      oapDiscount = true;
-    } else if (response.equals("no")) {
-      oapDiscount = false;
+    double fee = 0;
+    boolean disabled = question("Are you Disabled?");
+    if (disabled == true) {
+      System.out.print("Parking for you is free");
     } else {
-      System.out.println("Your response was not understood!");
-      System.out.println("Please try again!");
-      System.out.println("");
-      oapDiscount();
-    }
-    return oapDiscount;
-  }
+      fee = feeCalc();
+      boolean localDiscount = question("Do you have an ”I live locally badge”?");
+      if (localDiscount == true) {
+        fee = fee - 1;
+      }
 
-  public static void totalFee () 
-  {
-    double fee = feeCalc();
-    boolean localDiscount = localDiscount();
-    boolean oapDiscount = oapDiscount();
+      boolean oapDiscount = question("Are you an OAP?");
 
-    if (localDiscount == true) {
-      fee = fee - 1;
-    }
-
-    if (oapDiscount == true)
-    {
+      if (oapDiscount == true){
       fee = fee - 2;
+      }
+
     }
+    
 
     System.out.println("The parking charge for you is " + fee + " pounds. ");
     return;
   }
+
 }
