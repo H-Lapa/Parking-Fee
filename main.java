@@ -1,11 +1,11 @@
-import java.util.Scanner;
+import java.util.Scanner; // imports scanner function
 class Main {
 
   public static void main(String[] args) 
   {
     parkingCharge();
     System.exit(0);
-  }
+  } // end of main
 
   public static double feeCalc ()
   {
@@ -30,11 +30,11 @@ class Main {
     } else {
       System.out.println("pick a smaller time!");
       System.out.println(" ");
-      feeCalc();
+      fee = feeCalc();
     }
 
     return fee;
-  }
+  } // end of freeCalc
 
   public static boolean question (String question) 
   {
@@ -52,17 +52,17 @@ class Main {
       System.out.println("Your response was not understood!");
       System.out.println("Please try again!");
       System.out.println("");
-      question(question);
+      r = question(question);
     }
     return r;
-  }
+  } // end of question
 
   public static void parkingCharge () 
   {
     double fee = 0;
     boolean disabled = question("Are you Disabled?");
     if (disabled == true) {
-      System.out.print("Parking for you is free");
+      System.out.println("Parking for you is free");
     } else {
       fee = feeCalc();
       boolean localDiscount = question("Do you have an ”I live locally badge”?");
@@ -81,6 +81,6 @@ class Main {
 
     System.out.println("The parking charge for you is " + fee + " pounds. ");
     return;
-  }
+  } // end of parkingCharge
 
 }
